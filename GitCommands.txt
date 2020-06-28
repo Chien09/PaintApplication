@@ -1,0 +1,30 @@
+Git Commands
+
+git init //to initialize local repository 
+git config --global user.name "name"  //Your name so other members know who made the edits/commits 
+git config --global user.email "email" 
+git status   //to check modified files but haven't commit yet 
+git add .   //to add the files to repository 
+git add filename.java //to add that particular file to repository 
+git commit -m "first change"   //to commit to changes to respository to store your code
+git rm --cached filename.java  //to remove file from the respository check git status 
+git commit -m "delete filename.java" // to commit the delete file(s) 
+
+
+PUSH local repository onto GitHub 
+git remote add anyname(JPaint) https://github.com/Kiwi0209/SE450JPaint.git      //link and create remote respository
+git push -u anyname master    //push files in the respository to GITHUB 
+
+PULL or get repository from GITHUB 
+mkdir foldername //make new folder to clone the repository from 
+cd foldername 
+git pull https://github.com/blah blah blah 
+
+FOR GROUP WORKS STEPS: 
+git branch namebranch  //creating branching main code base to one person to modify code 
+git checkout namebranch 
+git status // to see status 
+git checkout master // you will see that the file that is checkout does not exist in the folder cause it is checkedout 
+git checkout namebranch //to go back to the not master 
+git checkout master 
+git merge login //to megre the branch and base files 
