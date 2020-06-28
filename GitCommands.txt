@@ -28,6 +28,3 @@ git checkout master // you will see that the file that is checkout does not exis
 git checkout namebranch //to go back to the not master 
 git checkout master 
 git merge login //to megre the branch and base files 
-
-
-BLAH BLAH BLAH 
