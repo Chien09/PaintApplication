@@ -18,6 +18,7 @@ public class JPaintController implements IJPaintController {
         setupEvents();
     }
 
+    //Using Lambdas coding, understand what happens behind it addEvent/EvenName
     private void setupEvents() {
         uiModule.addEvent(EventName.CHOOSE_SHAPE, () -> applicationState.setActiveShape());
         uiModule.addEvent(EventName.CHOOSE_PRIMARY_COLOR, () -> applicationState.setActivePrimaryColor());
