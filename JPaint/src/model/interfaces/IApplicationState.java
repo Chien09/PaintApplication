@@ -1,9 +1,7 @@
 package model.interfaces;
 
-import model.ShapeColor;
-import model.ShapeShadingType;
-import model.ShapeType;
-import model.StartAndEndPointMode;
+import model.*;
+import view.interfaces.PaintCanvasBase;
 
 public interface IApplicationState {
     void setActiveShape();
@@ -15,6 +13,22 @@ public interface IApplicationState {
     void setActiveShadingType();
 
     void setActiveStartAndEndPointMode();
+
+    void copy(SelectedShapesList SelectedShapes, CopiedClipBoard CopiedShapes);
+
+    void paste(ShapeArrayList ShapesList, CopiedClipBoard CopiedShapes);
+
+    void delete(PaintCanvasBase paintCanvas, ShapeArrayList ShapesList, SelectedShapesList SelectedList);
+
+    void clear(PaintCanvasBase paintCanvas, ShapeArrayList ShapesList, SelectedShapesList SelectedList, CopiedClipBoard CopiedList);
+
+    void undo();
+
+    void redo();
+
+    void group(ShapeArrayList ShapesList, SelectedShapesList SelectedList);
+
+    void ungroup(ShapeArrayList ShapesList, SelectedShapesList SelectedList);
 
     ShapeType getActiveShapeType();
 

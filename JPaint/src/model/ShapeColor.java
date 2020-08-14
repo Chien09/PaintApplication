@@ -1,6 +1,9 @@
 package model;
 
-public enum ShapeColor {
+import java.awt.*;
+import java.util.EnumMap;
+
+public enum ShapeColor{
     BLACK,
     BLUE,
     CYAN,
@@ -15,3 +18,5 @@ public enum ShapeColor {
     WHITE,
     YELLOW
 }
+
+

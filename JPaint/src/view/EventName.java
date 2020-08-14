@@ -37,5 +37,13 @@ public enum EventName {
 	PASTE,
 	DELETE,
 	GROUP,
-	UNGROUP
+	UNGROUP,
+
+	//Self Added (Work In progress) Want to CLEAR PaintCanvas for testing purposes
+	CLEAR{
+		@Override
+		public String toString() {
+			return "CLEAR";
+		}
+	}
 }
