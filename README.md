@@ -6,7 +6,7 @@ The aim of this project is to learn and acknowledge the various design patterns,
 The JPaint application is built using five design patterns, which are abstract factory pattern, command pattern, two strategy patterns, and composite pattern.
 The design patterns are included in the respository. 
 
-**Features Implemented**
+**Features Implemented**-----
 
 The required features that are built into the JPaint application includes:
 
@@ -34,7 +34,7 @@ paste, delete, group, and ungroup shape(s).
 
 
 
-**Design Patterns**
+**Design Patterns**-----
 
 -Abstract Factory Pattern -> used to create various shapes including Rectangle, Ellipse, and Triangle. 
 This allows to easy modify or add new class shapes without changing existing code. 
