@@ -7,6 +7,7 @@ The JPaint application is built using five design patterns, which are abstract f
 The design patterns are included in the respository. 
 
 **Features Implemented**
+
 The required features that are built into the JPaint application includes:
 
 • Draw shape(s)→including rectangle, ellipse, and triangle shape through creating IShape objects with various colors and shading types.
@@ -30,6 +31,7 @@ objects.
 paste, delete, group, and ungroup shape(s).
 
 • Clear→clear the paint canvas for new drawing or other events, as well as, more convenient for manual testing purposes.
+
 
 
 **Design Patterns**
