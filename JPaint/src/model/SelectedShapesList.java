@@ -17,29 +17,36 @@ public class SelectedShapesList {
         SelectedList.add(shape);
     }
 
+    public void removeShape(IShape shape) {SelectedList.remove(shape); }
+
     public ArrayList<IShape> getSelectedShapesList() { return SelectedList;}
 
     public void clearList(){
         SelectedList.clear();
     }
 
+    //Trigger of drawing border Strategy Pattern
     public void DrawSelectedBorders(){
-        //Drawing border around the selected shapes
+
         for (IShape shape : SelectedList) {
 
-            //Trigger of drawing border Strategy Pattern
-            BorderShapes BorderStrategy;
-            if(shape.getShapeType() == ShapeType.RECTANGLE) {
-                BorderStrategy = new BorderShapes(new BorderRectangleStrategy());
-                BorderStrategy.executeStrategy(shape);
+            if(shape instanceof GroupedShapesComposite) { //if the shape is of GroupedShapesComposite Type
+
+                //Use the GroupedShapesComposite drawBorders instead (Casting shape into GroupedShapesComposite object type)
+                ((GroupedShapesComposite) shape).drawSelectedGroupBorders();
             }
-            else if(shape.getShapeType() == ShapeType.ELLIPSE){
-                BorderStrategy = new BorderShapes(new BorderEllipseStrategy());
-                BorderStrategy.executeStrategy(shape);
-            }
-            else{ //shape.getShapeType() == ShapeType.TRIANGLE
-                BorderStrategy = new BorderShapes(new BorderTriangleStrategy());
-                BorderStrategy.executeStrategy(shape);
+            else {
+                BorderShapes BorderStrategy;
+                if (shape.getShapeType() == ShapeType.RECTANGLE) {
+                    BorderStrategy = new BorderShapes(new BorderRectangleStrategy());
+                    BorderStrategy.executeStrategy(shape);
+                } else if (shape.getShapeType() == ShapeType.ELLIPSE) {
+                    BorderStrategy = new BorderShapes(new BorderEllipseStrategy());
+                    BorderStrategy.executeStrategy(shape);
+                } else { //shape.getShapeType() == ShapeType.TRIANGLE
+                    BorderStrategy = new BorderShapes(new BorderTriangleStrategy());
+                    BorderStrategy.executeStrategy(shape);
+                }
             }
         }
     }

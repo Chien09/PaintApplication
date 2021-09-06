@@ -1,6 +1,7 @@
 package model;
 
 
+import javafx.scene.Group;
 import model.interfaces.IShape;
 import view.DrawShapes;
 import view.FilledInStrategy;
@@ -25,19 +26,24 @@ public class ShapeArrayList{
     //drawShapes uses Strategy Pattern
     public void drawShapes(){
         for(IShape shape : ShapesList){
-            DrawShapes DrawStrategy;
+            if(shape instanceof GroupedShapesComposite) { //if the shape is of GroupedShapesComposite Type
 
-            if(shape.getShadingType() == ShapeShadingType.OUTLINE){
-                DrawStrategy = new DrawShapes(new OutlineStrategy());
-                DrawStrategy.executeStrategy(shape);
+                //Use the GroupedShapesComposite draw instead (Casting shape into GroupedShapesComposite object type)
+                ((GroupedShapesComposite) shape).drawGroupedShapes();
             }
-            else if(shape.getShadingType() == ShapeShadingType.FILLED_IN){
-                DrawStrategy = new DrawShapes(new FilledInStrategy());
-                DrawStrategy.executeStrategy(shape);
-            }
-            else{ //shape.getShadingType() == ShapeShadingType.OUTLINE_AND_FILLED_IN
-                DrawStrategy = new DrawShapes(new FilledOutlineStrategy());
-                DrawStrategy.executeStrategy(shape);
+            else{ //Draw each shape of IShape type
+                DrawShapes DrawStrategy;
+
+                if (shape.getShadingType() == ShapeShadingType.OUTLINE) {
+                    DrawStrategy = new DrawShapes(new OutlineStrategy());
+                    DrawStrategy.executeStrategy(shape);
+                } else if (shape.getShadingType() == ShapeShadingType.FILLED_IN) {
+                    DrawStrategy = new DrawShapes(new FilledInStrategy());
+                    DrawStrategy.executeStrategy(shape);
+                } else { //shape.getShadingType() == ShapeShadingType.OUTLINE_AND_FILLED_IN
+                    DrawStrategy = new DrawShapes(new FilledOutlineStrategy());
+                    DrawStrategy.executeStrategy(shape);
+                }
             }
         }
     }

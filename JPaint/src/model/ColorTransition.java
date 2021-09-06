@@ -3,13 +3,14 @@ package model;
 import java.awt.Color;
 import java.util.EnumMap;
 
+//Converting ShapeColor to Color Type
 public class ColorTransition {
 
     private static final EnumMap<ShapeColor, Color> colorMap = new EnumMap<ShapeColor, Color>(ShapeColor.class);
 
     private static ShapeColor ShapeEnumColor;
 
-    //Constructor inserting the ShapeColor to be converted into Color
+    //Constructor
     public ColorTransition(ShapeColor ShapeEnumColor){
         this.ShapeEnumColor = ShapeEnumColor;
     }

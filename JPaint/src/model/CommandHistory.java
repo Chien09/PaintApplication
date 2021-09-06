@@ -4,6 +4,7 @@ import model.interfaces.IUndoRedo;
 
 import java.util.Stack;
 
+//For Undo & Redo of Command(s) storage
 class CommandHistory {
 	private static final Stack<IUndoRedo> undoStack = new Stack<IUndoRedo>();
 	private static final Stack<IUndoRedo> redoStack = new Stack<IUndoRedo>();

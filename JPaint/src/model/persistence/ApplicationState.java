@@ -89,14 +89,14 @@ public class ApplicationState implements IApplicationState, Serializable {
     }
 
     @Override
-    public void group(ShapeArrayList ShapesList, SelectedShapesList SelectedList) {
-        ICommand Grouping = new GroupCommand(ShapesList, SelectedList);
+    public void group(PaintCanvasBase paintCanvas, ShapeArrayList ShapesList, SelectedShapesList SelectedList) {
+        ICommand Grouping = new GroupCommand(paintCanvas, ShapesList, SelectedList);
         Grouping.execute();
     }
 
     @Override
-    public void ungroup(ShapeArrayList ShapesList, SelectedShapesList SelectedList) {
-        ICommand UnGrouping = new UnGroupCommand(ShapesList, SelectedList);
+    public void ungroup(PaintCanvasBase paintCanvas, ShapeArrayList ShapesList, SelectedShapesList SelectedList) {
+        ICommand UnGrouping = new UnGroupCommand(paintCanvas, ShapesList, SelectedList);
         UnGrouping.execute();
     }
 

@@ -29,26 +29,18 @@ public class SelectShapeCommand implements ICommand {
 
         Graphics2D graphics2D = paintCanvas.getGraphics2D();
 
-        if(SelectedList.getSelectedShapesList().isEmpty() == false) { //Check
+        //For clearing paintCanvas for redraw shapes and border not a good solution because it adds a new layer on top
+        //so OLD data is not erased from the ShapesList or the SelectedList
+        //CLEARING for "Deselecting Purposes"
+        graphics2D.clearRect(0,0,paintCanvas.getWidth(),paintCanvas.getHeight());
 
-            //clearing SelectedList from previous Select
-            SelectedList.clearList();
-            System.out.println("SelectedList Cleared");
+        //clearing SelectedList from previous Select if any
+        SelectedList.clearList();
 
-            //For clearing paintCanvas for redraw shapes and border not a good solution because it adds a new layer on top
-            //so OLD data is not erased from the ShapesList or the SelectedList
-            //CLEARING for "Deselecting Purposes"
-            graphics2D.clearRect(0,0,paintCanvas.getWidth(),paintCanvas.getHeight());
-
-            //To redraw all shapes using Strategy Pattern
-            ShapesList.drawShapes();
-        }
-        else{
-            System.out.println("SelectedList is EMPTY");
-        }
+        //To redraw all shapes using Strategy Pattern
+        ShapesList.drawShapes();
 
         for(IShape shape: ShapesList.getShapesList()){
-
             //Select Mouse Points
             Point SelectedMinPoint = new Point(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(), endPoint.getY()));
             Point SelectedMaxPoint = new Point(Math.max(startPoint.getX(), endPoint.getX()), Math.max(startPoint.getY(), endPoint.getY()));
@@ -60,19 +52,19 @@ public class SelectShapeCommand implements ICommand {
             Rectangle SelectedRectangle = new Rectangle(SelectedMinPoint.getX(), SelectedMinPoint.getY(), SelectedWidth, SelectedHeight);
             Rectangle OriginalShapeBorder = new Rectangle(shape.getMinPoint().getX(), shape.getMinPoint().getY(), shape.getWidth(), shape.getHeight());
 
-            if(SelectedRectangle.intersects(OriginalShapeBorder)){
+            if (SelectedRectangle.intersects(OriginalShapeBorder)) {
                 System.out.println("There is Collision");
             //Collision Detection-----------------------------------------------------------------------------------------------------
 
                 SelectedList.addShape(shape);
                 System.out.println("Shape Added to SelectedShapeList");
 
-                //Trigger of drawing border Strategy Pattern
-                SelectedList.DrawSelectedBorders();
-            }
-            else{
+            } else {
                 System.out.println("No Collision");
             }
         }
+
+        //Trigger of drawing border Strategy Pattern
+        SelectedList.DrawSelectedBorders();
     }
 }

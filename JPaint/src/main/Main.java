@@ -23,10 +23,10 @@ public class Main {
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);  //Getting current appstate the mode,shape,color,shading....
 
-        //Create Shape List to store shapes for Command Pattern
+        //Create Master Shape List to store shapes
         ShapeArrayList ShapesList = new ShapeArrayList();
 
-        //Create Select Shape List to store selected shapes mode
+        //Create Selected Shape List to store selected shapes mode
         SelectedShapesList SelectedShapes = new SelectedShapesList();
 
         //Create Copy Clipboard of Shapes Selected

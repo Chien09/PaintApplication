@@ -4,6 +4,8 @@ import model.interfaces.ICommand;
 import model.interfaces.IShape;
 import model.interfaces.IUndoRedo;
 
+import java.util.ArrayList;
+
 
 public class PasteCommand implements ICommand, IUndoRedo {
 
@@ -32,6 +34,7 @@ public class PasteCommand implements ICommand, IUndoRedo {
                 System.out.println("Copied Shape Pasted");
             }
 
+            //drawShapes uses Strategy Pattern
             ShapesList.drawShapes();
         }
         else{ //empty list (FOR Checking purposes)
@@ -43,10 +46,27 @@ public class PasteCommand implements ICommand, IUndoRedo {
     @Override
     public void undo() {
 
+        for(IShape Shape: CopiedShapes.getCopiedShapesList()){
+            ShapesList.removeShape(Shape);
+        }
+
+        //drawShapes uses Strategy Pattern
+        ShapesList.drawShapes();
     }
 
     @Override
     public void redo() {
 
+        for (IShape shape : CopiedShapes.getCopiedShapesList()) {
+
+            //Change the X, Y so when pasting its not in the same original spot
+            shape.UpdateX(90);
+            shape.UpdateY(90);
+
+            ShapesList.addShape(shape);
+        }
+
+        //drawShapes uses Strategy Pattern
+        ShapesList.drawShapes();
     }
 }

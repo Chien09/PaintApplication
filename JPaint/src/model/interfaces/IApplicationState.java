@@ -26,9 +26,9 @@ public interface IApplicationState {
 
     void redo();
 
-    void group(ShapeArrayList ShapesList, SelectedShapesList SelectedList);
+    void group(PaintCanvasBase paintCanvas, ShapeArrayList ShapesList, SelectedShapesList SelectedList);
 
-    void ungroup(ShapeArrayList ShapesList, SelectedShapesList SelectedList);
+    void ungroup(PaintCanvasBase paintCanvas, ShapeArrayList ShapesList, SelectedShapesList SelectedList);
 
     ShapeType getActiveShapeType();
 

@@ -2,8 +2,10 @@ package model;
 
 import model.interfaces.ICommand;
 import model.interfaces.IShape;
+import model.interfaces.IShapeFactory;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CopyCommand implements ICommand {
 
@@ -16,31 +18,61 @@ public class CopyCommand implements ICommand {
         this.CopiedShapes = CopiedShapes;
     }
 
-    //Creating a new shape from Copied Clipboard due to reference type
+    //method Creating a new shape from Copied Clipboard due to reference type
     private IShape CreateShape(IShape shape){
 
-        ShapeType ShapeTYPE = shape.getShapeType();
-        ShapeShadingType ShadingType = shape.getShadingType();
-        Point minPoint = new Point(shape.getMinPoint().getX(), shape.getMinPoint().getY());
-        Point maxPoint = new Point(shape.getMaxPoint().getX(), shape.getMaxPoint().getY());
-        Color primaryColor = shape.getPrimaryColor();
-        Color secondaryColor = shape.getSecondaryColor();
+        IShapeFactory ShapeCreated = new ShapeFactory();
+        IShape newShape;
 
-        ShapeFactory ShapeCreated = new ShapeFactory();
-        IShape Shape;
+        if(shape instanceof GroupedShapesComposite){ //GroupedShapesComposite Type
 
-        //Trigger of Abstract Factory
-        if(ShapeTYPE == ShapeType.RECTANGLE){
-            Shape = ShapeCreated.CreateShapeRectangle(shape.getPaintCanvas(), minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
-        }
-        else if(ShapeTYPE == ShapeType.ELLIPSE){
-            Shape = ShapeCreated.CreateShapeEllipse(shape.getPaintCanvas(), minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
-        }
-        else {//if(ShapeTYPE == ShapeType.TRIANGLE)
-            Shape = ShapeCreated.CreateShapeTriangle(shape.getPaintCanvas(), minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
-        }
+            ArrayList<IShape> TmpShapeArray; //tmp store GroupedShapesComposite shapes List
+            TmpShapeArray = ((GroupedShapesComposite) shape).getGroupedShapesList();
 
-        return Shape;
+            //For new Copy
+            GroupedShapesComposite newGroupedShapesComposite = new GroupedShapesComposite(shape.getPaintCanvas());
+
+            //iterate through the GroupedShapes
+            for(IShape TmpShape: TmpShapeArray){
+                ShapeType ShapeTYPE = TmpShape.getShapeType();
+                ShapeShadingType ShadingType = TmpShape.getShadingType();
+                Point minPoint = new Point(TmpShape.getMinPoint().getX(), TmpShape.getMinPoint().getY());
+                Point maxPoint = new Point(TmpShape.getMaxPoint().getX(), TmpShape.getMaxPoint().getY());
+                Color primaryColor = TmpShape.getPrimaryColor();
+                Color secondaryColor = TmpShape.getSecondaryColor();
+
+                //Trigger of Abstract Factory
+                if (ShapeTYPE == ShapeType.RECTANGLE) {
+                    newShape = ShapeCreated.CreateShapeRectangle(TmpShape.getPaintCanvas(), minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
+                } else if (ShapeTYPE == ShapeType.ELLIPSE) {
+                    newShape = ShapeCreated.CreateShapeEllipse(TmpShape.getPaintCanvas(), minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
+                } else {//if(ShapeTYPE == ShapeType.TRIANGLE)
+                    newShape = ShapeCreated.CreateShapeTriangle(TmpShape.getPaintCanvas(), minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
+                }
+
+                newGroupedShapesComposite.addShape(newShape);
+            }
+            return newGroupedShapesComposite;
+        }
+        else { //IShape Type
+            ShapeType ShapeTYPE = shape.getShapeType();
+            ShapeShadingType ShadingType = shape.getShadingType();
+            Point minPoint = new Point(shape.getMinPoint().getX(), shape.getMinPoint().getY());
+            Point maxPoint = new Point(shape.getMaxPoint().getX(), shape.getMaxPoint().getY());
+            Color primaryColor = shape.getPrimaryColor();
+            Color secondaryColor = shape.getSecondaryColor();
+
+            //Trigger of Abstract Factory
+            if (ShapeTYPE == ShapeType.RECTANGLE) {
+                newShape = ShapeCreated.CreateShapeRectangle(shape.getPaintCanvas(), minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
+            } else if (ShapeTYPE == ShapeType.ELLIPSE) {
+                newShape = ShapeCreated.CreateShapeEllipse(shape.getPaintCanvas(), minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
+            } else {//if(ShapeTYPE == ShapeType.TRIANGLE)
+                newShape = ShapeCreated.CreateShapeTriangle(shape.getPaintCanvas(), minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
+            }
+
+            return newShape;
+        }
     }
 
 
@@ -52,12 +84,12 @@ public class CopyCommand implements ICommand {
         if(SelectedShapes.getSelectedShapesList().isEmpty() == false) {
             for (IShape shape : SelectedShapes.getSelectedShapesList()) {
 
-                //Creating actual/deep copy of Shape Object NOT reference, to be added to the Master ShapesList
+                //Creating actual/deep copy of Shape Object NOT reference
                 IShape newCopiedShape = CreateShape(shape);
 
                 CopiedShapes.CopyShape(newCopiedShape);
 
-                System.out.println("Selected Shape Copied onto Clipboard List");
+                System.out.println("Selected Shape(s) Copied onto Clipboard List");
             }
         }
         else{ //empty list (FOR Checking purposes)

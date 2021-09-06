@@ -2,6 +2,7 @@ package model;
 
 import model.interfaces.ICommand;
 import model.interfaces.IShape;
+import model.interfaces.IShapeFactory;
 import model.interfaces.IUndoRedo;
 import model.persistence.ApplicationState;
 import view.interfaces.PaintCanvasBase;
@@ -16,8 +17,7 @@ public class CreateShapeCommand implements ICommand, IUndoRedo {
     private Point startPoint;
     private Point endPoint;
 
-    //Empty ShapeFactory
-    ShapeFactory ShapeCreated = new ShapeFactory();
+    IShapeFactory ShapeCreated = new ShapeFactory();
     private IShape Shape;
 
 
@@ -59,7 +59,7 @@ public class CreateShapeCommand implements ICommand, IUndoRedo {
             Shape = ShapeCreated.CreateShapeTriangle(paintCanvas, minPoint, maxPoint, ShapeTYPE, ShadingType, primaryColor, secondaryColor);
         }
 
-        //Storing Shapes that are drawn on the screen
+        //Storing Shapes
         if(Shape != null) { //for checking
             ShapesList.addShape(Shape);
         }
