@@ -49,3 +49,19 @@ Implementing the strategy pattern on drawing shapes allows encapsulating behavio
 -Composite Pattern -> used for selecting shape(s) in a group feature. Essentially, this pattern is good for combining objects together as one and process them as one group.
 
 
+
+-----**Application Samples**-----
+
+-Drawing and creating different shapes including different color and shadding type. <br>
+![Shapes](ReadMeImages/Shapes.jpg)
+
+<br>
+
+-Selecting shapes which displays a dashed outline around shapes that are selected, this allows the user to group the selected shapes into one object, as well as, moving the shapes and copying shapes. <br>
+![Select](ReadMeImages/Select.jpg)
+
+<br>
+
+-Moving shapes to a different position <br>
+![Move](ReadMeImages/Move.jpg)
+
